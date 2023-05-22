@@ -1,52 +1,39 @@
 <script>
-    import { Sidebar, SidebarGroup, SidebarItem, SidebarWrapper } from 'flowbite-svelte';
+    import { Sidebar, SidebarGroup, SidebarWrapper } from 'flowbite-svelte';
     import RequestPanel from '../../components/requestpanel/RequestPanel.svelte';
+    import { testRequests, activeRequest, sessionId } from '../../store/SessionStore/sessionStore';
+    import io from "socket.io-client";
+    import { onMount } from 'svelte';
+    import { BASE_URL } from '../../store/globals';
 
-    const request = {
-        headers: {
-            something: "test",
-            something2: "test",
-        },
-        details:{
-            id: "12345",
-            id2: "12345"
-        },
-        content:
-            `{
-                "test":"test"
-                "test":"test"
-                "test":"test"
-                "test":"test"
-                "test":"test"
-            }`
-    }
+    let requests = $testRequests;
+    $activeRequest = requests[0];
 
-    const request2 = {
-        headers: {
-            something: "test",
-            something2: "test",
-        },
-        details:{
-            id: "51325",
-            id2: "154123"
-        },
-        content:
-            `{
-                "test":"test"
-                "test":"test"
-                "test":"test"
-                "test":"test"
-                "test":"test"
-            }`
-    }
+    const socket = io($BASE_URL, {
+        withCredentials: true
+    });
 
-    let active = 0;
+    socket.on("newRequest", (data) => {
+        console.log(data);
+    });
 
-    let requests = [request, request2];
+    onMount(async () => {
+        if(!$sessionId){
+            const response = await fetch(`http://${$BASE_URL}/test`, { // connects - change this
+                credentials: "include"
+            });
+            
+            const result = await response.json();
+            
+            $sessionId = result.data;
+        }
+    });
+
     
 </script>
 
 <div class="h-full">
+    <h1>Connected to {$sessionId}</h1>
     <div class="flex flex-row h-full">
         <Sidebar class="h-full">
             <SidebarWrapper class="rounded-none bg-white h-full">
@@ -63,7 +50,7 @@
             </SidebarWrapper>
         </Sidebar>
         {#if requests.length != 0}
-            <RequestPanel request={requests[active]}></RequestPanel>
+            <RequestPanel request={$activeRequest}></RequestPanel>
         {/if}
     </div>
 </div>
