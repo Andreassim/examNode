@@ -10,7 +10,7 @@ export async function saveRequest(req, res, next) {
             remoteAddress : req.socket.remoteAddress,
             remoteFamily : req.socket.remoteFamily,
         },
-        headers: req.rawHeaders,
+        headers: req.headers,
         query: req.query,
         params: req.params,
         body: req.body,

@@ -4,18 +4,26 @@
 
     export let request;
 
+    console.log(request.body);
+
 </script>
 
-<div class="w-full grid grid-cols-2 bg-gray-100 px-4 text-xs">
+<div class="w-full grid grid-cols-2 bg-gray-100 px-4 text-xs overflow-auto">
     <div class="col-span-1 pr-1">
         <RequestTable title="Request details" rows={request.details}></RequestTable>
     </div>
     <div class="col-span-1 pl-1">
         <RequestTable title="Headers" rows={request.headers}></RequestTable>
     </div>
-    {#if request.content}
+    <div class="col-span-1 pl-1">
+        <RequestTable title="Query" rows={request.query}></RequestTable>
+    </div>
+    <div class="col-span-1 pl-1">
+        <RequestTable title="Params" rows={request.params}></RequestTable>
+    </div>
+    {#if Object.keys(request.body).length > 0}
         <div class="col-span-2">
-            <RawBlock content={request.content}></RawBlock>
+            <RawBlock content={request.body}></RawBlock>
         </div>
     {/if}
 </div>

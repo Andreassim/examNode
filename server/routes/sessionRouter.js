@@ -7,6 +7,7 @@ router.get("/session/new", async (req,res) => {
     req.session.sessionID = req.id
 
     if(req.query.private){
+        req.session.private = true;
         //do private stuff
     }
 

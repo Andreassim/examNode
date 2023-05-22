@@ -8,8 +8,6 @@
     import SidebarElement from '../../components/SidebarElement.svelte';
 
     let requests = $requestList;
-    $activeRequest = $testRequests[0];
-
     const socket = io($BASE_URL, {
         withCredentials: true
     });
@@ -48,8 +46,10 @@
                 </SidebarGroup>
             </SidebarWrapper>
         </Sidebar>
-        {#if requests.length != 0}
+        {#if $activeRequest}
             <RequestPanel request={$activeRequest}></RequestPanel>
+            {:else}
+            <h1>Ready for requests</h1>
         {/if}
     </div>
 </div>

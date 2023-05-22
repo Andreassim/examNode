@@ -33,7 +33,7 @@ const io = new Server(httpServer, {
     cors: {
         origin: "http://localhost:5177",
         methods: ["*"],
-        allowedHeaders: ["my-custom-header"],
+        allowedHeaders: ["my-custom-header"], //TODO Check this
         credentials: true
     }
 });
@@ -44,6 +44,9 @@ app.use(auth);
 
 import sessionRouter from "./routes/sessionRouter.js";
 app.use("/api", sessionRouter);
+
+import requestRouter from "./routes/requestRouter.js"
+app.use("/api", requestRouter);
 
 
 import saveRequest from "./middelware/requestLogger.js"
@@ -57,17 +60,14 @@ app.get("/:sessionId", (req,res) => {
 
     io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
 
-    res.send();
+    res.status(200).send();
 });
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 io.use(wrap(sessionMiddleware));
 
 io.on("connection", (socket) => {
-
     socket.join(`${socket.request.session.sessionID}`)
-    
-    socket.emit("hello", "world");
 });
 
 const PORT = process.env.PORT || 8080;
