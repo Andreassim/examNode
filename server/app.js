@@ -67,7 +67,9 @@ const wrap = middleware => (socket, next) => middleware(socket.request, {}, next
 io.use(wrap(sessionMiddleware));
 
 io.on("connection", (socket) => {
-    socket.join(`${socket.request.session.sessionID}`)
+    if(socket.request.session.sessionID){
+        socket.join(`${socket.request.session.sessionID}`)
+    }
 });
 
 const PORT = process.env.PORT || 8080;

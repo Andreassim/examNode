@@ -3,11 +3,10 @@
     import RequestPanel from '../../components/requestpanel/RequestPanel.svelte';
     import { testRequests, activeRequest, sessionId, requestList } from '../../store/SessionStore/sessionStore';
     import io from "socket.io-client";
-    import { onMount } from 'svelte';
     import { BASE_URL } from '../../store/globals';
     import SidebarElement from '../../components/SidebarElement.svelte';
+    import ConnectionPanel from '../../components/connectionPanel/ConnectionPanel.svelte';
 
-    let requests = $requestList;
     const socket = io($BASE_URL, {
         withCredentials: true
     });
@@ -16,23 +15,17 @@
         $requestList = [...$requestList, data.data];
     });
 
-    onMount(async () => {
-        if(!$sessionId){
-            const response = await fetch(`http://${$BASE_URL}/api/session/new`, { // connects - change this
-                credentials: "include"
-            });
-            
-            const result = await response.json();
-            
-            $sessionId = result.data;
-        }
-    });
-
-    
+    async function handleReconnect() {
+        socket.disconnect();
+        $requestList = [];
+        $activeRequest = null
+        socket.connect();
+    }
+   
 </script>
 
 <div class="h-full">
-    <h1>Connected to {$sessionId}</h1>
+    <ConnectionPanel handleReconnect={handleReconnect}></ConnectionPanel>
     <div class="flex flex-row h-full">
         <Sidebar class="h-full">
             <SidebarWrapper class="rounded-none bg-white h-full">
