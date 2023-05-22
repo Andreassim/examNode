@@ -41,24 +41,21 @@ const io = new Server(httpServer, {
 import auth from "./routes/authRouter.js"
 app.use(auth);
 
-app.get("/test", (req,res) => {
-    req.session.socketID = req.id
-    //console.log(req.session);
-    res.send({data: req.id});
-});
 
-app.get("/:socketId", (req,res) => {
-    //console.log(req.params.socketId);
-    
-    // store request
-    
-    // send notification for new request
+import sessionRouter from "./routes/sessionRouter.js";
+app.use("/api", sessionRouter);
+
+
+import saveRequest from "./middelware/requestLogger.js"
+app.use("/:sessionId", saveRequest);
+
+app.get("/:sessionId", (req,res) => {
     const notification = {
         id: req.id,
         method: req.method
     }
 
-    io.to(`${req.params.socketId}`).emit("newRequest", {data: notification});
+    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
 
     res.send();
 });
@@ -67,9 +64,8 @@ const wrap = middleware => (socket, next) => middleware(socket.request, {}, next
 io.use(wrap(sessionMiddleware));
 
 io.on("connection", (socket) => {
-    console.log(socket.request.session);
 
-    socket.join(`${socket.request.session.socketID}`)
+    socket.join(`${socket.request.session.sessionID}`)
     
     socket.emit("hello", "world");
 });

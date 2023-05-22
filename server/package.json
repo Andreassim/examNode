@@ -5,6 +5,8 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
+    "create-db": "node ./database/setupDatabase.js",
+    "reset-db": "node ./database/setupDatabase.js delete_mode",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "andreassim",
@@ -15,6 +17,8 @@
     "express": "^4.18.2",
     "express-request-id": "^3.0.0",
     "express-session": "^1.17.3",
-    "socket.io": "^4.6.1"
+    "socket.io": "^4.6.1",
+    "sqlite": "^4.2.0",
+    "sqlite3": "^5.1.6"
   }
 }

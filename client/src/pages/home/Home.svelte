@@ -20,7 +20,7 @@
 
     onMount(async () => {
         if(!$sessionId){
-            const response = await fetch(`http://${$BASE_URL}/test`, { // connects - change this
+            const response = await fetch(`http://${$BASE_URL}/api/session/new`, { // connects - change this
                 credentials: "include"
             });
             
