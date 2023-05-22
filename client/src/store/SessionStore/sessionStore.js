@@ -45,3 +45,5 @@ const request2 = {
 
 
 export let testRequests = writable([request, request2]);
+
+export const requestList = writable([]); 

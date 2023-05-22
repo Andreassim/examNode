@@ -1,20 +1,21 @@
 <script>
     import { Sidebar, SidebarGroup, SidebarWrapper } from 'flowbite-svelte';
     import RequestPanel from '../../components/requestpanel/RequestPanel.svelte';
-    import { testRequests, activeRequest, sessionId } from '../../store/SessionStore/sessionStore';
+    import { testRequests, activeRequest, sessionId, requestList } from '../../store/SessionStore/sessionStore';
     import io from "socket.io-client";
     import { onMount } from 'svelte';
     import { BASE_URL } from '../../store/globals';
+    import SidebarElement from '../../components/SidebarElement.svelte';
 
-    let requests = $testRequests;
-    $activeRequest = requests[0];
+    let requests = $requestList;
+    $activeRequest = $testRequests[0];
 
     const socket = io($BASE_URL, {
         withCredentials: true
     });
 
     socket.on("newRequest", (data) => {
-        console.log(data);
+        $requestList = [...$requestList, data.data];
     });
 
     onMount(async () => {
@@ -41,10 +42,8 @@
                     Requests
                 </div>
                 <SidebarGroup>
-                    {#each requests as request, i}
-                        <div class="text-black">
-                            {`${i}: ${request.details.id.slice(0,5)}`}
-                        </div>       
+                    {#each $requestList as request, i}
+                        <SidebarElement request={request}></SidebarElement>
                     {/each}
                 </SidebarGroup>
             </SidebarWrapper>

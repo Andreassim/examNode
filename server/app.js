@@ -43,20 +43,22 @@ app.use(auth);
 
 app.get("/test", (req,res) => {
     req.session.socketID = req.id
-    console.log(req.session);
+    //console.log(req.session);
     res.send({data: req.id});
 });
 
 app.get("/:socketId", (req,res) => {
-    console.log(req.params.socketId);
-    const data = req;
-    console.log(req);
-
-    // store request
-
-    // send notification for new request
+    //console.log(req.params.socketId);
     
-    io.to(`${req.params.socketId}`).emit("newRequest", data);
+    // store request
+    
+    // send notification for new request
+    const notification = {
+        id: req.id,
+        method: req.method
+    }
+
+    io.to(`${req.params.socketId}`).emit("newRequest", {data: notification});
 
     res.send();
 });
