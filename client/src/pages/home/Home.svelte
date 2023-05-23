@@ -6,6 +6,7 @@
     import { BASE_URL } from '../../store/globals';
     import SidebarElement from '../../components/SidebarElement.svelte';
     import ConnectionPanel from '../../components/connectionPanel/ConnectionPanel.svelte';
+    import InfoPanel from '../../components/infoPanel/InfoPanel.svelte';
 
     const socket = io($BASE_URL, {
         withCredentials: true
@@ -47,7 +48,7 @@
         {#if $activeRequest}
             <RequestPanel request={$activeRequest}></RequestPanel>
             {:else}
-            <h1>Ready for requests</h1>
+            <InfoPanel/>
         {/if}
     </div>
 </div>

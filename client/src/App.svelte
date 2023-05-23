@@ -13,7 +13,7 @@
 
 <main class="min-h-screen h-screen pt-0 my-0 mx-auto text-center flex flex-col items-stretch bg-white text-black">
     <Router>
-        <Navbar class="w-screen border-b-2 border-gray-400">
+        <Navbar class="w-screen border-b-2 border-blue-900">
             <NavBrand href="/">
                 <img src="/icon.svg" alt="" class=" mr-3 h-6 sm:h-14">
                 <span class="self-center whitespace-nowrap text-xl text-primary-500 font-bold">
