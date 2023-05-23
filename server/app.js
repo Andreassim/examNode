@@ -117,11 +117,6 @@ io.use(wrap(sessionMiddleware));
 import db from "./database/connection.js";
 
 io.on("connection", async (socket) => {
-
-    // send previous notifications.
-
-    // check get requests based on sessionID
-
     if(socket.request.session.sessionID){
         
         const prevNotifications = await db.all("SELECT id, method FROM requests WHERE session_id = ?", [socket.request.session.sessionID]);
