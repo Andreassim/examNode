@@ -1,6 +1,6 @@
 <script>
     import { Button } from "flowbite-svelte";
-    import { sessionId } from "../../store/SessionStore/sessionStore";
+    import { sessionId } from "../../store/sessionStore/sessionStore";
     import { BASE_URL } from "../../store/globals";
 
 
@@ -37,7 +37,6 @@
         $sessionId = result.data;
         handleReconnect();
     }
-
 
 </script>
 

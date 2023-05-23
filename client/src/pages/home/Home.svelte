@@ -1,7 +1,7 @@
 <script>
     import { Sidebar, SidebarGroup, SidebarWrapper } from 'flowbite-svelte';
     import RequestPanel from '../../components/requestpanel/RequestPanel.svelte';
-    import { testRequests, activeRequest, sessionId, requestList } from '../../store/SessionStore/sessionStore';
+    import { testRequests, activeRequest, sessionId, requestList } from '../../store/sessionStore/sessionStore';
     import io from "socket.io-client";
     import { BASE_URL } from '../../store/globals';
     import SidebarElement from '../../components/SidebarElement.svelte';
@@ -34,7 +34,7 @@
     <div class="flex flex-row h-full">
         <Sidebar class="h-full">
             <SidebarWrapper class="rounded-none bg-white h-full">
-                <div class="text-blue-600">
+                <div class="text-primary-600 font-bold">
                     Requests
                 </div>
                 <SidebarGroup>

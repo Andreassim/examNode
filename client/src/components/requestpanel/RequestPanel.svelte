@@ -8,7 +8,7 @@
 
 </script>
 
-<div class="w-full grid grid-cols-2 bg-gray-100 px-4 text-xs overflow-auto">
+<div class="w-full grid grid-cols-2 bg-slate-700 px-4 text-xs overflow-auto rounded-md mr-4">
     <div class="col-span-1 pr-1">
         <RequestTable title="Request details" rows={request.details}></RequestTable>
     </div>

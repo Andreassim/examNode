@@ -7,7 +7,7 @@
 
 <div class="w-full h-full">
     <Table>
-        <caption class="p-5 text-lg font-semibold text-left text-gray-900">{title}</caption>
+        <caption class="p-5 text-lg font-semibold text-left text-primary-900">{title}</caption>
         <TableBody>
             {#each Object.entries(rows) as [key, value]}
                 <TableBodyRow>
