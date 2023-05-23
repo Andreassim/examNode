@@ -63,18 +63,77 @@ app.get("/:sessionId", (req,res) => {
     res.status(200).send();
 });
 
+
+app.post("/:sessionId", (req,res) => {
+    const notification = {
+        id: req.id,
+        method: req.method
+    }
+
+    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
+
+    res.status(200).send();
+});
+
+
+app.put("/:sessionId", (req,res) => {
+    const notification = {
+        id: req.id,
+        method: req.method
+    }
+
+    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
+
+    res.status(200).send();
+});
+
+app.patch("/:sessionId", (req,res) => {
+    const notification = {
+        id: req.id,
+        method: req.method
+    }
+
+    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
+
+    res.status(200).send();
+});
+
+
+app.delete("/:sessionId", (req,res) => {
+    const notification = {
+        id: req.id,
+        method: req.method
+    }
+
+    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
+
+    res.status(200).send();
+});
+
+
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 io.use(wrap(sessionMiddleware));
 
-io.on("connection", (socket) => {
+import db from "./database/connection.js";
+
+io.on("connection", async (socket) => {
 
     // send previous notifications.
 
-    //check get requests based on sessionID
-
+    // check get requests based on sessionID
 
     if(socket.request.session.sessionID){
-        socket.join(`${socket.request.session.sessionID}`)
+        
+        const prevNotifications = await db.all("SELECT id, method FROM requests WHERE session_id = ?", [socket.request.session.sessionID]);
+        if(prevNotifications.length !== 0){
+            let data = [];
+            prevNotifications.forEach((notification) => {
+                data.push(notification);
+            });
+            socket.emit("prevNotications", {data: data})
+        }
+        
+        socket.join(`${socket.request.session.sessionID}`);
     }
 });
 

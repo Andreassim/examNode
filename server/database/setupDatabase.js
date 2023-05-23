@@ -32,6 +32,7 @@ db.exec(`
 CREATE TABLE IF NOT EXISTS requests 
     (
         id TEXT PRIMARY KEY,
+        method TEXT,
         data TEXT,
         session_id TEXT,
         FOREIGN KEY (session_id) REFERENCES sessions(id)

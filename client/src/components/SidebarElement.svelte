@@ -13,7 +13,7 @@
         });
         const json = await response.json();
         const result = JSON.parse(json.data.data);
-        
+
         $activeRequest = result
     }
 
@@ -37,8 +37,12 @@
     background-color: blue;
 }
 
-.UPDATE {
+.PUT {
     background-color: purple;
+}
+
+.PATCH {
+    background-color: yellow;
 }
 
 .DELETE {

@@ -16,7 +16,7 @@ export async function saveRequest(req, res, next) {
         body: req.body,
     }
 
-    await db.run("INSERT INTO requests (id, data, session_id) VALUES (?, ? ,?);",[requestToStore.details.id, JSON.stringify(requestToStore), req.params.sessionId]);
+    await db.run("INSERT INTO requests (id, data, session_id, method) VALUES (?, ? ,?, ?);",[requestToStore.details.id, JSON.stringify(requestToStore), req.params.sessionId, req.method]);
 
     next();
 };

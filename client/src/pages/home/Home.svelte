@@ -15,6 +15,11 @@
         $requestList = [...$requestList, data.data];
     });
 
+    socket.on("prevNotications", (data) => {
+        const array = data.data
+        $requestList = array;
+    });
+
     async function handleReconnect() {
         socket.disconnect();
         $requestList = [];
@@ -25,7 +30,7 @@
 </script>
 
 <div class="h-full">
-    <ConnectionPanel handleReconnect={handleReconnect}></ConnectionPanel>
+    <ConnectionPanel handleReconnect={() => handleReconnect()}></ConnectionPanel>
     <div class="flex flex-row h-full">
         <Sidebar class="h-full">
             <SidebarWrapper class="rounded-none bg-white h-full">
@@ -33,7 +38,7 @@
                     Requests
                 </div>
                 <SidebarGroup>
-                    {#each $requestList as request, i}
+                    {#each $requestList as request}
                         <SidebarElement request={request}></SidebarElement>
                     {/each}
                 </SidebarGroup>
