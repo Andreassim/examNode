@@ -67,6 +67,12 @@ const wrap = middleware => (socket, next) => middleware(socket.request, {}, next
 io.use(wrap(sessionMiddleware));
 
 io.on("connection", (socket) => {
+
+    // send previous notifications.
+
+    //check get requests based on sessionID
+
+
     if(socket.request.session.sessionID){
         socket.join(`${socket.request.session.sessionID}`)
     }
