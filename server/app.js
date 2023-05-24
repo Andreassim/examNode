@@ -52,7 +52,7 @@ app.use("/api", requestRouter);
 import saveRequest from "./middelware/requestLogger.js"
 app.use("/:sessionId", saveRequest);
 
-app.get("/:sessionId", (req,res) => {
+const sendNotification = (req, res, next) => {
     const notification = {
         id: req.id,
         method: req.method
@@ -60,53 +60,28 @@ app.get("/:sessionId", (req,res) => {
 
     io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
 
+    next()
+};
+
+app.use("/:sessionId", sendNotification);
+
+app.get("/:sessionId", (req,res) => {
     res.status(200).send();
 });
-
 
 app.post("/:sessionId", (req,res) => {
-    const notification = {
-        id: req.id,
-        method: req.method
-    }
-
-    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
-
     res.status(200).send();
 });
 
-
 app.put("/:sessionId", (req,res) => {
-    const notification = {
-        id: req.id,
-        method: req.method
-    }
-
-    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
-
     res.status(200).send();
 });
 
 app.patch("/:sessionId", (req,res) => {
-    const notification = {
-        id: req.id,
-        method: req.method
-    }
-
-    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
-
     res.status(200).send();
 });
 
-
 app.delete("/:sessionId", (req,res) => {
-    const notification = {
-        id: req.id,
-        method: req.method
-    }
-
-    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
-
     res.status(200).send();
 });
 

@@ -4,8 +4,6 @@
 
     export let request;
 
-    console.log(request.body);
-
 </script>
 
 <div class="w-full grid grid-cols-2 text-xs overflow-auto rounded-md mr-4">

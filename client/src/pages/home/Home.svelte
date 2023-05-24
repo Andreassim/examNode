@@ -1,7 +1,7 @@
 <script>
     import { Sidebar, SidebarGroup, SidebarWrapper } from 'flowbite-svelte';
     import RequestPanel from '../../components/requestpanel/RequestPanel.svelte';
-    import { activeRequest, requestList } from '../../store/sessionStore/sessionStore.js';
+    import { activeRequest, requestList, session } from '../../store/sessionStore/sessionStore.js';
     import io from "socket.io-client";
     import { BASE_URL } from '../../store/globals.js';
     import SidebarElement from '../../components/sidebarElement/SidebarElement.svelte';
@@ -28,6 +28,7 @@
         $requestList = [];
         $activeRequest = null
         socket.connect();
+        succesToast("Connected to " + $session.id)
     }
    
 </script>

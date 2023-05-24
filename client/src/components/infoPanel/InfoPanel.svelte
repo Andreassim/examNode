@@ -1,6 +1,6 @@
 <script>
     import { Card } from "flowbite-svelte";
-    import { sessionId } from "../../store/sessionStore/sessionStore.js";
+    import { session } from "../../store/sessionStore/sessionStore.js";
     import { BASE_URL } from "../../store/globals.js";
 
 </script>
@@ -13,10 +13,10 @@
             <p>It works by providing a user with an endpoint they can send requests to it will be available at</p>
         </div>
         <div>
-            {#if $sessionId}
+            {#if $session.id}
             <p>Send requests to:</p>
             <div class="bg-gray-200 rounded-md text-black">
-                <p class="mr-2">http://{$BASE_URL}/{$sessionId}</p>
+                <p class="mr-2">http://{$BASE_URL}/{$session.id}</p>
             </div>
             {:else}
             <div class="bg-gray-200 rounded-md"> 
