@@ -1,10 +1,40 @@
 <script>
     import { Button, Card, Input, Label } from "flowbite-svelte";
     import { useNavigate } from "svelte-navigator";
+    import { BASE_URL, user } from "../../store/globals.js";
+    import { errorToast, succesToast } from "../../util/custom-toasters.js";
+
 
     const navigate = useNavigate();
     let email;
     let password;
+
+    async function onLogin(){
+
+        const response = await fetch(`http://${$BASE_URL}/login`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
+            credentials: "include",
+            body: JSON.stringify({
+                email: email,
+                password: password
+            })
+        });
+        
+        const json = await response.json()
+        if(!response.ok){
+            errorToast(json.message);
+            
+            return
+        }
+        
+        $user = json.data;
+
+        console.log($user);
+        
+        succesToast(`Welcome! <br> Redirecting to profile`);
+        setTimeout(() => navigate('/profile'),1000)
+    };
     
 </script>
 
@@ -23,7 +53,7 @@
                         <Input type="password" id="password" placeholder="•••••••••" bind:value={password}/>
                     </div>
                     <div class="mt-4">
-                        <Button color="primary" class="w-full">Login</Button>
+                        <Button color="primary" class="w-full" on:click={() => onLogin()}>Login</Button>
                     </div>
                     <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
                         Don't have an account? <span

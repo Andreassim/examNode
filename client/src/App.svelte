@@ -10,6 +10,8 @@
     import Login from './pages/login/Login.svelte';
     import Signup from './pages/signup/Signup.svelte';
 
+    console.log($user);
+
 </script>
 
 <main class="min-h-screen h-screen pt-0 my-0 mx-auto text-center flex flex-col items-stretch bg-white text-black">
@@ -31,7 +33,7 @@
                     <Link to="/profile" class="text-primary-500 font-semibold">Profile</Link>
                 </NavLi>
                 <NavLi>
-                    <Link to="/logout" class="text-primary-500 font-semibold">Login</Link>
+                    <Link to="/logout" class="text-primary-500 font-semibold">Logout</Link>
                 </NavLi>
                 {:else}
                 <NavLi>
