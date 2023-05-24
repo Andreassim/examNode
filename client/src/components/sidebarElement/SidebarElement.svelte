@@ -1,6 +1,6 @@
 <script>
-    import { activeRequest } from "../store/sessionStore/sessionStore.js";
-    import { BASE_URL } from "../store/globals.js";
+    import { activeRequest } from "../../store/sessionStore/sessionStore.js";
+    import { BASE_URL } from "../../store/globals.js";
 
     export let request;
 

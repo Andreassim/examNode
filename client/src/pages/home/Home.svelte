@@ -4,7 +4,7 @@
     import { activeRequest, requestList } from '../../store/sessionStore/sessionStore.js';
     import io from "socket.io-client";
     import { BASE_URL } from '../../store/globals.js';
-    import SidebarElement from '../../components/SidebarElement.svelte';
+    import SidebarElement from '../../components/sidebarElement/SidebarElement.svelte';
     import ConnectionPanel from '../../components/connectionPanel/ConnectionPanel.svelte';
     import InfoPanel from '../../components/infoPanel/InfoPanel.svelte';
     import { succesToast } from '../../util/custom-toasters.js';

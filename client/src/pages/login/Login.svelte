@@ -29,9 +29,7 @@
         }
         
         $user = json.data;
-
-        console.log($user);
-        
+       
         succesToast(`Welcome! <br> Redirecting to profile`);
         setTimeout(() => navigate('/profile'),1000)
     };

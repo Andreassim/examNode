@@ -9,8 +9,7 @@
     import { user } from './store/globals.js';
     import Login from './pages/login/Login.svelte';
     import Signup from './pages/signup/Signup.svelte';
-
-    console.log($user);
+    import PrivateRoute from './components/privateRoute/PrivateRoute.svelte';
 
 </script>
 
@@ -18,7 +17,7 @@
     <SvelteToast options={{reversed:true, intro:{y:192}}}/>
     <Router>
         <Navbar class="w-screen border-b-2 border-blue-900 bg-blue-900">
-            <NavBrand href="/">
+            <NavBrand>
                 <img src="/icon.svg" alt="" class=" mr-3 h-6 sm:h-14">
                 <span class="self-center whitespace-nowrap text-xl text-primary-500 font-bold">
                     Webhooker
@@ -50,9 +49,9 @@
             <Route path="/">
                 <Home />
             </Route>
-            <Route path="/profile">
+            <PrivateRoute path="/profile">
                 <Profile />
-            </Route>
+            </PrivateRoute>
             <Route path="/login">
                 <Login />
             </Route>
