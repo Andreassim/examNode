@@ -3,11 +3,11 @@
     import RequestPanel from '../../components/requestpanel/RequestPanel.svelte';
     import { activeRequest, requestList } from '../../store/sessionStore/sessionStore.js';
     import io from "socket.io-client";
-    import { BASE_URL } from '../../store/globals';
+    import { BASE_URL } from '../../store/globals.js';
     import SidebarElement from '../../components/SidebarElement.svelte';
     import ConnectionPanel from '../../components/connectionPanel/ConnectionPanel.svelte';
     import InfoPanel from '../../components/infoPanel/InfoPanel.svelte';
-    import { succesToast } from '../../util/custom-toasters';
+    import { succesToast } from '../../util/custom-toasters.js';
 
     const socket = io($BASE_URL, {
         withCredentials: true

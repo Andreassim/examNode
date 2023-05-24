@@ -1,7 +1,7 @@
 <script>
     import { Button } from "flowbite-svelte";
     import { sessionId } from "../../store/sessionStore/sessionStore.js";
-    import { BASE_URL } from "../../store/globals";
+    import { BASE_URL } from "../../store/globals.js";
 
 
     export let handleReconnect;

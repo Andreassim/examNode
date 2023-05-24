@@ -1,8 +1,8 @@
 <script>
     import { Button, Card, Input, Label } from "flowbite-svelte";
     import { useNavigate } from "svelte-navigator";
-    import { BASE_URL } from "../../store/globals";
-    import { errorToast, succesToast } from "../../util/custom-toasters";
+    import { BASE_URL } from "../../store/globals.js";
+    import { errorToast, succesToast } from "../../util/custom-toasters.js";
 
     const navigate = useNavigate();
 

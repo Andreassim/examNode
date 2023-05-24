@@ -1,7 +1,7 @@
 <script>
     import { Card } from "flowbite-svelte";
     import { sessionId } from "../../store/sessionStore/sessionStore.js";
-    import { BASE_URL } from "../../store/globals";
+    import { BASE_URL } from "../../store/globals.js";
 
 </script>
 
