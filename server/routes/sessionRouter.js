@@ -44,19 +44,18 @@ router.post("/session/reconnect", async (req,res) => {
             req.session.private = false;
             return res.status(401).send({message: "unathorized"});
         }
-        if(session.user_id == req.session.user.id){
-            req.session.private = true;
-            req.session.sessionID = session.id;
-            return res.status(200).send({
-                data: {
-                    id:session.id,
-                    private: req.session.private
-                }
-            });
-        }else{
+        if(!session.user_id == req.session.user.id){
             req.session.private = false;
             return res.status(401).send({message: "unathorized"});
         }
+        req.session.private = true;
+        req.session.sessionID = session.id;
+        return res.status(200).send({
+            data: {
+                id:session.id,
+                private: req.session.private
+            }
+        });
     }
 
     req.session.sessionID = session.id;
