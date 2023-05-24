@@ -1,15 +1,17 @@
 <script>
-    import { Navbar, NavBrand, NavLi, NavUl, NavHamburger } from 'flowbite-svelte';
+    import { Navbar, NavBrand, NavLi, NavUl} from 'flowbite-svelte';
     import {Router, Link, Route} from "svelte-navigator";
     import Home from "./pages/home/Home.svelte";
     import Profile from "./pages/profile/Profile.svelte";
-    import Footer from './components/shared/Footer.svelte';
+    import Footer from './components/footer/Footer.svelte';
     import { SvelteToast } from "@zerodevx/svelte-toast"
 
-    import { user } from './store/globals.js';
+    import { BASE_URL, user } from './store/globals.js';
     import Login from './pages/login/Login.svelte';
     import Signup from './pages/signup/Signup.svelte';
     import PrivateRoute from './components/privateRoute/PrivateRoute.svelte';
+    import LogoutButton from './components/logoutButton/LogoutButton.svelte';
+
 
 </script>
 
@@ -25,14 +27,14 @@
             </NavBrand>
             <NavUl>
                 <NavLi>
-                    <Link to="/" class="text-primary-500 font-semibold">Home</Link>
+                    <Link to="/" class="text-primary-500 font-semibold flex items-center">Home</Link>
                 </NavLi>
                 {#if $user}
                 <NavLi>
                     <Link to="/profile" class="text-primary-500 font-semibold">Profile</Link>
                 </NavLi>
                 <NavLi>
-                    <Link to="/logout" class="text-primary-500 font-semibold">Logout</Link>
+                    <LogoutButton/>
                 </NavLi>
                 {:else}
                 <NavLi>

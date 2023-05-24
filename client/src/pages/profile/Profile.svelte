@@ -1,8 +1,14 @@
 <script>
-    import { user } from "../../store/globals.js";
-
-    console.log($user);
+    import { Card } from "flowbite-svelte";
 </script>
-<h1>This is a profile</h1>
 
-<h1>email: {$user.email}</h1>
+<div class="grid grid-cols-2 h-full">
+    <div class="col-span-1 border-r-2">
+    </div>
+    <div class="col-span-1 mx-auto mt-5">
+        <Card size="lg">
+            <h1 class="text-primary-500">Welcome!</h1>
+            <p>To the left can you see all sessions associated with your user</p>
+        </Card>
+    </div>
+</div>
