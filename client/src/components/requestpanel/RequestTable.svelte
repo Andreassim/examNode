@@ -12,7 +12,7 @@
             {#each Object.entries(rows) as [key, value]}
                 <TableBodyRow>
                     <TableBodyCell>{key}</TableBodyCell>
-                    <TableBodyCell>{value}</TableBodyCell>
+                    <TableBodyCell class="">{value}</TableBodyCell>
                 </TableBodyRow>
             {/each}
         </TableBody>

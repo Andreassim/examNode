@@ -1,6 +1,6 @@
 <script>
     import { Button } from "flowbite-svelte";
-    import { sessionId } from "../../store/sessionStore/sessionStore";
+    import { sessionId } from "../../store/sessionStore/sessionStore.js";
     import { BASE_URL } from "../../store/globals";
 
 

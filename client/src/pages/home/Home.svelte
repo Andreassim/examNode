@@ -1,18 +1,20 @@
 <script>
     import { Sidebar, SidebarGroup, SidebarWrapper } from 'flowbite-svelte';
     import RequestPanel from '../../components/requestpanel/RequestPanel.svelte';
-    import { testRequests, activeRequest, sessionId, requestList } from '../../store/sessionStore/sessionStore';
+    import { activeRequest, requestList } from '../../store/sessionStore/sessionStore.js';
     import io from "socket.io-client";
     import { BASE_URL } from '../../store/globals';
     import SidebarElement from '../../components/SidebarElement.svelte';
     import ConnectionPanel from '../../components/connectionPanel/ConnectionPanel.svelte';
     import InfoPanel from '../../components/infoPanel/InfoPanel.svelte';
+    import { succesToast } from '../../util/custom-toasters';
 
     const socket = io($BASE_URL, {
         withCredentials: true
     });
 
     socket.on("newRequest", (data) => {
+        succesToast("New request!");
         $requestList = [...$requestList, data.data];
     });
 

@@ -1,10 +1,10 @@
 <script>
     import { Button, Card, Input, Label } from "flowbite-svelte";
+    import { useNavigate } from "svelte-navigator";
 
-
+    const navigate = useNavigate();
     let email;
     let password;
-    let cPassword;
     
 </script>
 
@@ -16,14 +16,20 @@
                     <h1 class=" text-primary-600 font-bold">Login</h1>
                     <div class="my-2">
                         <Label for="email" class="mb-2">Email</Label>
-                        <Input type="text" id="email" placeholder="arnold@schwarzenegger.movistar" bind:email/>
+                        <Input type="text" id="email" placeholder="donald@duck.movistar" bind:value={email}/>
                     </div>
                     <div class="my-2">
                         <Label for="password" class="mb-2">Password</Label>
-                        <Input type="password" id="password" placeholder="•••••••••" bind:password/>
+                        <Input type="password" id="password" placeholder="•••••••••" bind:value={password}/>
                     </div>
-                    <div class="my-2 text-right">
-                        <Button color="primary">Login</Button>
+                    <div class="mt-4">
+                        <Button color="primary" class="w-full">Login</Button>
+                    </div>
+                    <div class="text-sm font-medium text-gray-500 dark:text-gray-300">
+                        Don't have an account? <span
+                          on:click={() => navigate("/signup")} on:keydown={() => navigate("/signup")}
+                          class="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                          >Sign up here!</span>
                     </div>
                 </div>
         </Card>

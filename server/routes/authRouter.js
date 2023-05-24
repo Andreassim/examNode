@@ -34,6 +34,8 @@ router.post("/login", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
+    console.log(req.headers);
+    console.log(req.body);
     if(!req.body.email || !req.body.password){
         return res.status(400).send({message: "missing email or password"});
     }
