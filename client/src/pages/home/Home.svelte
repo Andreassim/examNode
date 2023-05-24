@@ -36,7 +36,7 @@
 <div class="h-full">
     <ConnectionPanel handleReconnect={() => handleReconnect()}></ConnectionPanel>
     <div class="flex flex-row h-full">
-        <Sidebar class="h-full">
+        <Sidebar class="h-full border-r-2 border-slate-200">
             <SidebarWrapper class="rounded-none bg-white h-full">
                 <div class="text-primary-600 font-bold">
                     Requests

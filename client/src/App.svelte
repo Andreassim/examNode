@@ -14,7 +14,7 @@
 </script>
 
 <main class="min-h-screen h-screen pt-0 my-0 mx-auto text-center flex flex-col items-stretch bg-white text-black">
-    <SvelteToast options={{reversed:true, intro:{y:192}}}/>
+    <SvelteToast options={{reversed:true, intro:{y:100}}}/>
     <Router>
         <Navbar class="w-screen border-b-2 border-blue-900 bg-blue-900">
             <NavBrand>

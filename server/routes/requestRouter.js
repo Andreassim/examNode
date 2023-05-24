@@ -9,10 +9,8 @@ router.get("/request/:id", async (req,res) => {
     }
 
     const result = await db.get(
-        "SELECT data FROM requests WHERE id = ? AND session_id = ?",
-        [req.params.id, req.session.sessionID]
-    );
-    //get request
+        "SELECT data FROM requests WHERE id = ? AND session_id = ?", [req.params.id, req.session.sessionID]);
+
 
     if(!result){
         return res.status(400).send({data: "nothing here"});

@@ -44,7 +44,7 @@
 
 </script>
 
-<form class="text-left">
+<form class="text-left border-b-2 border-slate-200">
     <div class="bg-white text-black">
         <div class="pt-1 m-auto mx-10 py-2">
             <div class="grid grid-cols-4">
