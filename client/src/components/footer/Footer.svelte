@@ -3,7 +3,6 @@
 
 </script>
   
-  
-<Footer class="rounded-none bg-blue-900">
+<Footer footerType="custom" customClass=" p-4 bg-blue-900 md:flex md:items-center md:justify-between md:p-6">
     <FooterCopyright class="text-white" href="/" by="Webhooker" year={2023}/>
 </Footer>
