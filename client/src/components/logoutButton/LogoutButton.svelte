@@ -12,8 +12,8 @@
         if(!response.ok){
             return errorToast("something went wrong");
         }
-        $user = null;
-        $session = null;
+        $user = "";
+        $session = {id:"", private: false};
         succesToast("Logged out");
         navigate("/login");
     }

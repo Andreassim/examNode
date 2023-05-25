@@ -29,9 +29,7 @@ router.post("/login", async (req, res) => {
     }
     delete user["password"];
     req.session.user = user;
-
-    console.log(req.session);
-    
+   
     res.status(200).send({data: user});
 });
 

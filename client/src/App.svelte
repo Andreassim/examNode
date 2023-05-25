@@ -5,13 +5,12 @@
     import Profile from "./pages/profile/Profile.svelte";
     import Footer from './components/footer/Footer.svelte';
     import { SvelteToast } from "@zerodevx/svelte-toast"
-
-    import { BASE_URL, user } from './store/globals.js';
+    import { user } from './store/globals.js';
     import Login from './pages/login/Login.svelte';
     import Signup from './pages/signup/Signup.svelte';
     import PrivateRoute from './components/privateRoute/PrivateRoute.svelte';
     import LogoutButton from './components/logoutButton/LogoutButton.svelte';
-
+    import { session } from './store/sessionStore/sessionStore';
 
 </script>
 
@@ -26,38 +25,47 @@
                 </span>
             </NavBrand>
             <NavUl>
-                <NavLi>
-                    <Link to="/" class="text-primary-500 font-semibold flex items-center">Home</Link>
-                </NavLi>
+                {#if !$session.id}
+                    <NavLi>
+                         <Link to="/" class="text-primary-500 font-semibold flex items-center">Home</Link>
+                     </NavLi>
+                {:else}
+                    <NavLi>
+                        <Link to="/$/{$session.id}" class="text-primary-500 font-semibold flex items-center">Home</Link>
+                    </NavLi>
+                {/if}
                 {#if $user}
                 <NavLi>
-                    <Link to="/profile" class="text-primary-500 font-semibold">Profile</Link>
+                    <Link to="profile" class="text-primary-500 font-semibold">Profile</Link>
                 </NavLi>
                 <NavLi>
                     <LogoutButton/>
                 </NavLi>
                 {:else}
                 <NavLi>
-                    <Link to="/login" class="text-primary-500 font-semibold">Login</Link>
+                    <Link to="login" class="text-primary-500 font-semibold">Login</Link>
                 </NavLi>
                 <NavLi>
-                    <Link to="/signup" class="text-primary-500 font-semibold">Signup</Link>
+                    <Link to="signup" class="text-primary-500 font-semibold">Signup</Link>
                 </NavLi>
                 {/if}
             </NavUl>
         </Navbar>
       
         <div class="mb-auto w-screen h-full">
-            <Route path="/">
-                <Home />
+            <Route path={`/`}>
+                <Home/>
             </Route>
-            <PrivateRoute path="/profile">
+            <Route path="$/:sessionId" let:params>
+                <Home/>
+            </Route>
+            <PrivateRoute path="profile">
                 <Profile />
             </PrivateRoute>
-            <Route path="/login">
+            <Route path="login">
                 <Login />
             </Route>
-            <Route path="/signup">
+            <Route path="signup">
                 <Signup />
             </Route>
         </div>

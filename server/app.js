@@ -92,6 +92,8 @@ import db from "./database/connection.js";
 
 io.on("connection", async (socket) => {
     if(socket.request.session.sessionID){
+
+        socket.leave(`${socket.request.session.sessionID}`);
         
         const prevNotifications = await db.all("SELECT id, method FROM requests WHERE session_id = ?", [socket.request.session.sessionID]);
         if(prevNotifications.length !== 0){
