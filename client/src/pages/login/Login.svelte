@@ -31,7 +31,7 @@
         $user = json.data;
        
         succesToast(`Welcome! <br> Redirecting to profile`);
-        setTimeout(() => navigate('/profile'),1000)
+        setTimeout(() => navigate('/profile'),200)
     };
     
 </script>

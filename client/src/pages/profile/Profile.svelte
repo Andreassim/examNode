@@ -17,8 +17,6 @@
         }
 
         $userSessions = sessions.data;
-
-        console.log($userSessions);
     });
 
 </script>
