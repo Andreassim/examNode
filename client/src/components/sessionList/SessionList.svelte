@@ -22,7 +22,7 @@
                 <p class="flex-grow mt-2">
                     {session.id}
                 </p>
-                {#if session.private}
+                {#if session.is_private}
                     <div class="m-2 px-2 border-2 bg-gray-500 text-white rounded-lg">Private</div>
                 {/if}
                 <Button color="green" outline on:click={() => handleNagigateToSession(session.id)}>Connect</Button>

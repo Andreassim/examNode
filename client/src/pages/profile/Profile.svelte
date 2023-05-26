@@ -1,20 +1,31 @@
 <script>
     import { Card } from "flowbite-svelte";
     import SessionList from "../../components/sessionList/SessionList.svelte";
+    import { onMount } from "svelte";
+    import { BASE_URL } from "../../store/globals";
+    import { userSessions } from "../../store/sessionStore/sessionStore";
+    import { errorToast } from "../../util/custom-toasters";
 
-    const sessions = {
-        0: { id: 1234},
-        1: { id: 2234},
-        2: { id: 3234},
-        3: { id: 4234, private: true},
-        4: { id: 5234},
-    };
+    onMount(async () => {
+        const response = await fetch(`http://${$BASE_URL}/api/sessions`, {
+            credentials: "include"
+        });
+
+        const sessions = await response.json();
+        if(!response.ok){
+            errorToast(sessions.message);
+        }
+
+        $userSessions = sessions.data;
+
+        console.log($userSessions);
+    });
 
 </script>
 
 <div class="grid grid-cols-2 h-full bg-white">
     <div class="col-span-1 border-r-2">
-        <SessionList sessions = {sessions}/>
+        <SessionList sessions = {$userSessions}/>
     </div>
     <div class="col-span-1 mx-auto mt-5">
         <Card size="lg">

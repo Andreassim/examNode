@@ -1,21 +1,21 @@
 import db from "../database/connection.js";
 
 import { Router } from "express";
+import { requireUser } from "../middelware/authorizer.js";
 const router = Router();
 
 router.get("/sessions/new", async (req,res) => {
     req.session.sessionID = req.id
 
     const privateSession = req.query.privateSession == "true" ? true : false;
-
+    
+    req.session.private = false
     let userID;
-    if(privateSession){
-        if(req.session.user){
+    if(req.session.user){
+        userID = req.session.user.id
+        if(privateSession){
             req.session.private = true;
-            userID = req.session.user.id
         }
-    }else{
-        req.session.private = false;
     }
 
     await db.run("INSERT INTO sessions (id, is_private, user_id) VALUES (?, ?, ?)", [req.id, privateSession, userID]);
@@ -67,6 +67,13 @@ router.post("/sessions/reconnect", async (req,res) => {
             private: req.session.private
         }
     });
+});
+
+
+router.get("/sessions", requireUser , async (req, res) => {
+   const sessions = await db.all("SELECT id, is_private FROM sessions WHERE user_id = ? ", [req.session.user.id]);
+
+   res.status(200).send({data: sessions}); 
 });
 
 export default router;
