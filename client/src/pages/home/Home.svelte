@@ -8,7 +8,7 @@
 
 </script>
 
-<div class="h-full">
+<div class="h-full bg-white">
     <ConnectionPanel />
     <div class="flex flex-row h-full">
         <Sidebar class="h-full border-r-2 border-slate-200">

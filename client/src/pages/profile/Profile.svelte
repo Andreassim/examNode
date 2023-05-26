@@ -2,7 +2,7 @@
     import { Card } from "flowbite-svelte";
 </script>
 
-<div class="grid grid-cols-2 h-full">
+<div class="grid grid-cols-2 h-full bg-white">
     <div class="col-span-1 border-r-2">
     </div>
     <div class="col-span-1 mx-auto mt-5">
