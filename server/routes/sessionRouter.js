@@ -3,7 +3,7 @@ import db from "../database/connection.js";
 import { Router } from "express";
 const router = Router();
 
-router.get("/session/new", async (req,res) => {
+router.get("/sessions/new", async (req,res) => {
     req.session.sessionID = req.id
 
     const privateSession = req.query.privateSession == "true" ? true : false;
@@ -28,7 +28,7 @@ router.get("/session/new", async (req,res) => {
     });
 });
 
-router.post("/session/reconnect", async (req,res) => {
+router.post("/sessions/reconnect", async (req,res) => {
     if(!req.body.sessionID){
         return res.status(400).send({message: "Missing sessionId"})
     }

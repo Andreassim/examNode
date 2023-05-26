@@ -31,7 +31,7 @@
     });
 
     async function handleNewSession(privateSession = false){
-        const response = await fetch(`http://${$BASE_URL}/api/session/new?privateSession=${privateSession}`, {
+        const response = await fetch(`http://${$BASE_URL}/api/sessions/new?privateSession=${privateSession}`, {
             credentials: "include"
         });
         
@@ -47,7 +47,7 @@
                sessionID: $session.id 
             };
         
-        const response = await fetch(`http://${$BASE_URL}/api/session/reconnect`, {
+        const response = await fetch(`http://${$BASE_URL}/api/sessions/reconnect`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             credentials: "include",
