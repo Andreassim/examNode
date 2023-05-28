@@ -6,13 +6,13 @@
 </script>
 
 <div class="w-full h-full">
-    <Table>
+    <Table divClass="table-fixed break-all" hoverable>
         <caption class="p-5 text-lg font-semibold text-left text-primary-900">{title}</caption>
         <TableBody>
-            {#each Object.entries(rows) as [key, value]}
+            {#each Object.entries(rows) as [key, value], i}
                 <TableBodyRow>
                     <TableBodyCell>{key}</TableBodyCell>
-                    <TableBodyCell class="">{value}</TableBodyCell>
+                    <TableBodyCell tdClass="">{value}</TableBodyCell>
                 </TableBodyRow>
             {/each}
         </TableBody>
