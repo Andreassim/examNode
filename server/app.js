@@ -48,6 +48,9 @@ app.use("/api", sessionRouter);
 import requestRouter from "./routes/requestRouter.js"
 app.use("/api", requestRouter);
 
+app.use("/:sessionId", express.text());
+app.use("/:sessionId", express.urlencoded());
+
 
 import saveRequest from "./middelware/requestLogger.js"
 app.use("/:sessionId", saveRequest);
