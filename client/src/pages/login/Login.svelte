@@ -21,17 +21,14 @@
             })
         });
         
-        const json = await response.json()
-        if(!response.ok){
-            errorToast(json.message);
-            
-            return
+        const json = await response.json();
+        if(!response.ok){         
+            return errorToast(json.message);
         }
         
         $user = json.data;
-       
         succesToast(`Welcome! <br> Redirecting to profile`);
-        setTimeout(() => navigate('/profile'),200)
+        navigate('/profile');
     };
     
 </script>

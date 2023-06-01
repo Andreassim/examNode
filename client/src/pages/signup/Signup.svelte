@@ -14,8 +14,7 @@
         e.preventDefault();
 
         if(password != cPassword){
-            errorToast("Passwords does not match!");
-            return
+            return errorToast("Passwords does not match!");
         }
 
         const body = {
@@ -31,15 +30,12 @@
         });
         
         const json = await response.json()
-        if(!response.ok){
-            errorToast(json.message);
-            
-            return
+        if(!response.ok){          
+            return errorToast(json.message);
         }
         
         succesToast(`${json.message} <br> Redirecting to login`);
-        setTimeout(() => navigate('/login'),1000)
-        
+        navigate('/login')
     }
     
 </script>

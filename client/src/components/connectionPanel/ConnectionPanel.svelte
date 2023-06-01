@@ -61,8 +61,7 @@
         const result = await response.json();
 
         if(!response.ok){
-            errorToast(result.message);                        
-            return
+            return  errorToast(result.message);                        
         }        
         $session = result.data;
         handleReconnect();
@@ -73,14 +72,14 @@
             socket.disconnect();
         }
         $requestList = [];
-        $activeRequest = null
+        $activeRequest = null;
         socket.connect();
-        succesToast("Connected to " + $session.id)
+        succesToast("Connected to " + $session.id);
     }
     
     async function handleDeleteSession(){
         if(!$session.id){
-            return errorToast("No session found!")
+            return errorToast("No session found!");
         }
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/` + $session.id, {
             method: "DELETE",
