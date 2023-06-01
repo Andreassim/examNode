@@ -1,7 +1,7 @@
 <script>
     import { Button, Card, Input, Label } from "flowbite-svelte";
     import { useNavigate } from "svelte-navigator";
-    import { BASE_URL, user } from "../../store/globals.js";
+    import { BASE_URL, user, PROTOCOL } from "../../store/globals.js";
     import { errorToast, succesToast } from "../../util/custom-toasters.js";
 
 
@@ -11,7 +11,7 @@
 
     async function onLogin(){
 
-        const response = await fetch(`http://${$BASE_URL}/login`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/login`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",

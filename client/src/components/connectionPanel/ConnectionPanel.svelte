@@ -1,7 +1,7 @@
 <script>
     import { Button } from "flowbite-svelte";
     import { activeRequest, requestList, session } from "../../store/sessionStore/sessionStore.js";
-    import { BASE_URL, user } from "../../store/globals.js";
+    import { BASE_URL, PROTOCOL, user } from "../../store/globals.js";
     import { errorToast, succesToast } from "../../util/custom-toasters.js";
     import { onDestroy, onMount } from "svelte";
     import { useNavigate, useParams } from "svelte-navigator";
@@ -31,7 +31,7 @@
     });
 
     async function handleNewSession(privateSession = false){
-        const response = await fetch(`http://${$BASE_URL}/api/sessions/new?privateSession=${privateSession}`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/new?privateSession=${privateSession}`, {
             credentials: "include"
         });
         
@@ -39,7 +39,6 @@
         
         $session = result.data;
         navigate(`/$/${$session.id}`);
-        handleConnectToSession();
     }
 
     async function handleConnectToSession(){
@@ -47,7 +46,7 @@
                sessionID: $session.id 
             };
         
-        const response = await fetch(`http://${$BASE_URL}/api/sessions/reconnect`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/reconnect`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             credentials: "include",
@@ -84,6 +83,24 @@
         socket.connect();
         succesToast("Connected to " + $session.id)
     }
+
+    async function handleDeleteSession(){
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/` + $session.id, {
+            method: "DELETE",
+            credentials: "include",
+        });
+
+        const json = await response.json();
+
+        if(!response.ok){
+            return errorToast(json.message);
+        }
+        succesToast(json.message);
+        $session = {id: "", private: false};
+        $requestList =[];
+        $activeRequest = null;
+        navigate("/");
+    }
    
 </script>
 
@@ -98,7 +115,7 @@
                     <Button outline color="blue" on:click={() => handleNewSession(true)}>NEW PRIVATE</Button>
                     {/if}
                     <Button outline color="green" on:click={() => handleConnectToSession()}>CONNECT</Button>
-                    <Button outline color="red">DELETE</Button>
+                    <Button outline color="red" on:click={() => handleDeleteSession()}>DELETE</Button>
                 </div>
                 {#if $session.private}
                 <div class="cols-span-1 m-auto">

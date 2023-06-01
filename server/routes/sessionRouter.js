@@ -76,5 +76,33 @@ router.post("/sessions/reconnect", async (req,res) => {
 });
 
 
+router.delete("/sessions/:id", async (req, res) => {
+    const sessionId = req.params.id;
+
+    const session = await db.get("SELECT id, user_id FROM sessions WHERE id = ?", [sessionId]);
+    if(!session){
+        return res.status(400).send({message: "Session doesnt exists"})
+    }
+
+    if(session.user_id != null){
+        if(!req.session.user){
+            return res.status(401).send({message: "Unathorized"});
+        }
+        if(!req.session.user.id == session.user_id){
+            return res.status(401).send({message: "Unathorized"});   
+        }
+    }
+
+    try{
+
+        await db.run("DELETE FROM requests WHERE session_id = ?", [session.id]);
+        await db.run("DELETE FROM sessions WHERE id = ?", [session.id]);
+
+    }catch {
+        return res.status(500).send({message: "Something went wrong"});
+    }
+    res.status(200).send({message: `${session.id} has been deleted`});
+});
+
 
 export default router;

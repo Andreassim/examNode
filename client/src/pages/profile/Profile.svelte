@@ -2,12 +2,12 @@
     import { Card } from "flowbite-svelte";
     import SessionList from "../../components/sessionList/SessionList.svelte";
     import { onMount } from "svelte";
-    import { BASE_URL } from "../../store/globals";
+    import { BASE_URL, PROTOCOL } from "../../store/globals";
     import { userSessions } from "../../store/sessionStore/sessionStore";
     import { errorToast } from "../../util/custom-toasters";
 
     onMount(async () => {
-        const response = await fetch(`http://${$BASE_URL}/api/sessions`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions`, {
             credentials: "include"
         });
 

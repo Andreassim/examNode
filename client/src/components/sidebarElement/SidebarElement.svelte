@@ -1,6 +1,6 @@
 <script>
     import { activeRequest } from "../../store/sessionStore/sessionStore.js";
-    import { BASE_URL } from "../../store/globals.js";
+    import { BASE_URL, PROTOCOL } from "../../store/globals.js";
 
     export let request;
 
@@ -8,7 +8,7 @@
 
     async function handleActiveRequest(){
 
-        const response = await fetch("http://" + $BASE_URL + "/api/request/" + request.id, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/request/${request.id}`, {
             credentials: "include"
         });
         const json = await response.json();

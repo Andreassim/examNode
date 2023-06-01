@@ -1,12 +1,12 @@
 <script>
     import { useNavigate } from "svelte-navigator";
-    import { BASE_URL, user } from "../../store/globals.js";
+    import { BASE_URL, user, PROTOCOL } from "../../store/globals.js";
     import { session } from "../../store/sessionStore/sessionStore.js";
     import { errorToast, succesToast } from "../../util/custom-toasters.js";
 
     const navigate = useNavigate();
     async function handleLogout(){
-        const response = await fetch(`http://${$BASE_URL}/logout`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/logout`, {
             credentials: "include"
         });
         if(!response.ok){

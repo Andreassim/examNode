@@ -4,7 +4,7 @@
     import Home from "./pages/home/Home.svelte";
     import Profile from "./pages/profile/Profile.svelte";
     import { SvelteToast } from "@zerodevx/svelte-toast"
-    import { BASE_URL, user } from './store/globals.js';
+    import { BASE_URL, user, PROTOCOL } from './store/globals.js';
     import Login from './pages/login/Login.svelte';
     import Signup from './pages/signup/Signup.svelte';
     import PrivateRoute from './components/privateRoute/PrivateRoute.svelte';
@@ -15,7 +15,7 @@
 
 
     onMount( async () => {
-        const response = await fetch("http://" + $BASE_URL + "/verify", {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/verify`, {
             credentials:"include"
         });
         const loggedInUser = await response.json();

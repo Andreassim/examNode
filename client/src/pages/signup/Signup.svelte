@@ -1,7 +1,7 @@
 <script>
     import { Button, Card, Input, Label } from "flowbite-svelte";
     import { useNavigate } from "svelte-navigator";
-    import { BASE_URL } from "../../store/globals.js";
+    import { BASE_URL, PROTOCOL } from "../../store/globals.js";
     import { errorToast, succesToast } from "../../util/custom-toasters.js";
 
     const navigate = useNavigate();
@@ -23,7 +23,7 @@
             password: password
         };
 
-        const response = await fetch(`http://${$BASE_URL}/signup`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/signup`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",
