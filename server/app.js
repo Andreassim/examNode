@@ -40,7 +40,6 @@ const io = new Server(httpServer, {
 import auth from "./routes/authRouter.js"
 app.use(auth);
 
-
 import sessionRouter from "./routes/sessionRouter.js";
 app.use("/api", sessionRouter);
 
@@ -62,7 +61,7 @@ const sendNotification = (req, res, next) => {
 
     io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
 
-    next()
+    next();
 };
 
 app.use("/:sessionId", sendNotification);
