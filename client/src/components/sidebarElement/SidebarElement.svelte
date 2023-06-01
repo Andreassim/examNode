@@ -41,6 +41,7 @@
 
 .PATCH {
     background-color: yellow;
+    color:black;
 }
 
 .DELETE {
