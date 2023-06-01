@@ -1,4 +1,5 @@
 import dotenv from "dotenv/config";
+import path from "path";
 
 import express  from "express";
 const app = express();
@@ -10,7 +11,7 @@ app.use(requestId());
 import session from "express-session";
 
 const sessionMiddleware = session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
@@ -18,25 +19,37 @@ const sessionMiddleware = session({
 
 app.use(sessionMiddleware);
 
-import cors from "cors";
-app.use(cors({
-    credentials: true,
-    origin: true
-}));
-
-
 import {createServer} from "http";
 const httpServer = createServer(app);
 
+import cors from "cors";
 import { Server } from "socket.io";
-const io = new Server(httpServer, {
-    cors: {
-        origin: "http://localhost:5177",
-        methods: ["*"],
-        allowedHeaders: ["my-custom-header"], //TODO Check this
-        credentials: true
-    }
-});
+let io = new Server(httpServer);
+if(process.env.DEV_MODE == "true"){
+    app.use(cors({
+        credentials: true,
+        origin: true
+    }));
+    io = new Server(httpServer, {
+        cors: {
+            origin: process.env.DEV_ORIGIN,
+            methods: ["*"],
+            credentials: true
+        }
+    });
+}else {
+    app.use(express.static(process.env.STATIC_PATH));
+
+    const sendFrontend = (req, res) => {
+        res.sendFile(path.resolve(process.env.STATIC_PATH + "/index.html"));
+    };
+
+    app.get("/profile", sendFrontend);
+
+    app.get("/login", sendFrontend);
+
+    app.get("/signup", sendFrontend);
+}
 
 import auth from "./routes/authRouter.js"
 app.use(auth);
@@ -60,11 +73,11 @@ const sendNotification = (req, res, next) => {
         id: req.id,
         method: req.method
     }
-
+    
     io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
-
+    
     next()
-};
+}
 
 app.use("/:sessionId", sendNotification);
 
@@ -87,6 +100,12 @@ app.patch("/:sessionId", (req,res) => {
 app.delete("/:sessionId", (req,res) => {
     res.status(200).send();
 });
+
+if(process.env.DEV_MODE != "true"){
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(process.env.STATIC_PATH + "/index.html"));
+        });
+}
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 io.use(wrap(sessionMiddleware));

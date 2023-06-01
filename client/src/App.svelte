@@ -13,7 +13,6 @@
     import { onMount } from 'svelte';
     import NotFound from './pages/notFound/NotFound.svelte';
 
-
     onMount( async () => {
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/verify`, {
             credentials:"include"
@@ -65,9 +64,6 @@
         </Navbar>
       
         <div class="mb-auto w-screen h-content">
-            <Route path={`/`}>
-                <Home/>
-            </Route>
             <Route path="$/:sessionId" let:params>
                 <Home/>
             </Route>
@@ -80,6 +76,9 @@
             <PrivateRoute path="signup" condition={!$user} redirectLocation="/profile">
                 <Signup />
             </PrivateRoute>
+            <Route path={`/`}>
+                <Home/>
+            </Route>
             <Route component={NotFound}/>
         </div>
     </Router>
