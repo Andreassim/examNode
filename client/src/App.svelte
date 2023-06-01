@@ -12,7 +12,7 @@
     import LogoutButton from './components/logoutButton/LogoutButton.svelte';
     import { session } from './store/sessionStore/sessionStore';
     import { onMount } from 'svelte';
-
+    import NotFound from './pages/notFound/NotFound.svelte';
 
 
     onMount( async () => {
@@ -31,7 +31,7 @@
     <SvelteToast options={{reversed:true, intro:{y:100}}}/>
     <Router>
         <Navbar color="none" class="w-screen border-b-2 border-blue-900 bg-blue-900">
-            <NavBrand>
+            <NavBrand href="/">
                 <img src="/icon.svg" alt="" class=" mr-3 h-6 sm:h-14">
                 <span class="self-center whitespace-nowrap text-xl text-primary-500 font-bold">
                     Webhooker
@@ -81,6 +81,7 @@
             <PrivateRoute path="signup" condition={!$user} redirectLocation="/profile">
                 <Signup />
             </PrivateRoute>
+            <Route component={NotFound}/>
         </div>
     </Router>
     <Footer/>
