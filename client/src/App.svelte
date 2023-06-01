@@ -1,9 +1,8 @@
 <script>
-    import { Navbar, NavBrand, NavLi, NavUl} from 'flowbite-svelte';
+    import { Navbar, NavBrand, NavLi, NavUl, Footer, FooterCopyright} from 'flowbite-svelte';
     import {Router, Link, Route} from "svelte-navigator";
     import Home from "./pages/home/Home.svelte";
     import Profile from "./pages/profile/Profile.svelte";
-    import Footer from './components/footer/Footer.svelte';
     import { SvelteToast } from "@zerodevx/svelte-toast"
     import { BASE_URL, user } from './store/globals.js';
     import Login from './pages/login/Login.svelte';
@@ -84,7 +83,9 @@
             <Route component={NotFound}/>
         </div>
     </Router>
-    <Footer/>
+    <Footer footerType="custom" customClass="p-4 bg-blue-900 md:flex md:items-center md:justify-between md:p-6 h-5p">
+        <FooterCopyright class="text-white" href="/" by="Webhooker" year={2023}/>
+    </Footer>
 </main>
 
 <style>
