@@ -22,7 +22,7 @@
 </script>
 
 <div class="grid grid-cols-2 h-full bg-white">
-    <div class="col-span-1 border-r-2">
+    <div class="col-span-1 border-r-2 overflow-auto">
         <SessionList sessions = {$userSessions}/>
     </div>
     <div class="col-span-1 mx-auto mt-5">
