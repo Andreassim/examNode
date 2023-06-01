@@ -4,8 +4,6 @@
 
     export let request;
 
-    //click change activeRequest
-
     async function handleActiveRequest(){
 
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/request/${request.id}`, {
