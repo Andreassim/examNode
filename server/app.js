@@ -10,7 +10,7 @@ app.use(requestId());
 import session from "express-session";
 
 const sessionMiddleware = session({
-    secret: 'keyboard cat',
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
     cookie: { secure: false }
@@ -31,9 +31,8 @@ const httpServer = createServer(app);
 import { Server } from "socket.io";
 const io = new Server(httpServer, {
     cors: {
-        origin: "http://localhost:5177",
+        origin: process.env.ORIGIN,
         methods: ["*"],
-        allowedHeaders: ["my-custom-header"], //TODO Check this
         credentials: true
     }
 });
@@ -49,7 +48,7 @@ import requestRouter from "./routes/requestRouter.js"
 app.use("/api", requestRouter);
 
 app.use("/:sessionId", express.text());
-app.use("/:sessionId", express.urlencoded());
+app.use("/:sessionId", express.urlencoded({extended:true}));
 
 
 import saveRequest from "./middelware/requestLogger.js"

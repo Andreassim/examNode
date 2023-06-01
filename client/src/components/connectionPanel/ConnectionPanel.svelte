@@ -79,6 +79,9 @@
     }
     
     async function handleDeleteSession(){
+        if(!$session.id){
+            return errorToast("No session found!")
+        }
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/` + $session.id, {
             method: "DELETE",
             credentials: "include",
