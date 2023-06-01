@@ -4,15 +4,18 @@
   
     const navigate = useNavigate();
     const location = useLocation();
+
+    export let condition;
+    export let redirectLocation;
   
-    $: if (!$user) {
-      navigate("/login", {
+    $: if (!condition) {
+      navigate(redirectLocation, {
         state: { from: $location.pathname },
         replace: true,
       });
     }
   </script>
   
-  {#if $user}
+  {#if condition}
     <slot />
   {/if}

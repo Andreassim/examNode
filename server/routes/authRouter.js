@@ -12,6 +12,10 @@ router.get("/logout", (req, res) =>{
     res.status(200).send({message: "user logged out"});
 });
 
+router.get("/verify", (req, res) => {
+    res.status(200).send({data: req.session.user});
+});
+
 router.post("/login", async (req, res) => {
     if(!req.body.email || !req.body.password){
         return res.status(400).send({message: "missing email or password"});

@@ -5,13 +5,26 @@
     import Profile from "./pages/profile/Profile.svelte";
     import Footer from './components/footer/Footer.svelte';
     import { SvelteToast } from "@zerodevx/svelte-toast"
-    import { user } from './store/globals.js';
+    import { BASE_URL, user } from './store/globals.js';
     import Login from './pages/login/Login.svelte';
     import Signup from './pages/signup/Signup.svelte';
     import PrivateRoute from './components/privateRoute/PrivateRoute.svelte';
     import LogoutButton from './components/logoutButton/LogoutButton.svelte';
     import { session } from './store/sessionStore/sessionStore';
+    import { onMount } from 'svelte';
 
+
+
+    onMount( async () => {
+        const response = await fetch("http://" + $BASE_URL + "/verify", {
+            credentials:"include"
+        });
+        const loggedInUser = await response.json();
+        if(loggedInUser.data){
+            $user = loggedInUser.data;
+        }
+    });
+    
 </script>
 
 <main class="min-h-screen h-screen pt-0 my-0 mx-auto text-center flex flex-col items-stretch bg-white bg-opacity-0 text-black">
@@ -59,15 +72,15 @@
             <Route path="$/:sessionId" let:params>
                 <Home/>
             </Route>
-            <PrivateRoute path="profile">
+            <PrivateRoute path="profile" condition={$user} redirectLocation="/login">
                 <Profile />
             </PrivateRoute>
-            <Route path="login">
+            <PrivateRoute path="login" condition={!$user} redirectLocation="/profile">
                 <Login />
-            </Route>
-            <Route path="signup">
+            </PrivateRoute>
+            <PrivateRoute path="signup" condition={!$user} redirectLocation="/profile">
                 <Signup />
-            </Route>
+            </PrivateRoute>
         </div>
     </Router>
     <Footer/>

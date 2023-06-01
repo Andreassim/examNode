@@ -4,6 +4,12 @@ import { Router } from "express";
 import { requireUser } from "../middelware/authorizer.js";
 const router = Router();
 
+router.get("/sessions", requireUser , async (req, res) => {
+    const sessions = await db.all("SELECT id, is_private FROM sessions WHERE user_id = ? ", [req.session.user.id]);
+ 
+    res.status(200).send({data: sessions}); 
+});
+
 router.get("/sessions/new", async (req,res) => {
     req.session.sessionID = req.id
 
@@ -70,10 +76,5 @@ router.post("/sessions/reconnect", async (req,res) => {
 });
 
 
-router.get("/sessions", requireUser , async (req, res) => {
-   const sessions = await db.all("SELECT id, is_private FROM sessions WHERE user_id = ? ", [req.session.user.id]);
-
-   res.status(200).send({data: sessions}); 
-});
 
 export default router;
