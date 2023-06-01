@@ -8,6 +8,7 @@
     import { io } from "socket.io-client";
     
     const navigate = useNavigate();
+    let refreshConnectionOnNewSession = false;
 
     const socket = io($BASE_URL, {
         withCredentials: true,
@@ -21,6 +22,7 @@
                 $session.id = $params.sessionId;
             }
             handleConnectToSession();
+            refreshConnectionOnNewSession = true;
         }
     });
 
@@ -39,6 +41,9 @@
         
         $session = result.data;
         navigate(`/$/${$session.id}`);
+        if(refreshConnectionOnNewSession){
+            handleConnectToSession();
+        }
     }
 
     async function handleConnectToSession(){
@@ -63,17 +68,6 @@
         handleReconnect();
     }
 
-  
-    socket.on("newRequest", (data) => {
-        succesToast("New request!");
-        $requestList = [...$requestList, data.data];
-    });
-
-    socket.on("prevNotications", (data) => {
-        const array = data.data
-        $requestList = array;
-    });
-
     async function handleReconnect() {
         if(socket.connected){
             socket.disconnect();
@@ -83,25 +77,37 @@
         socket.connect();
         succesToast("Connected to " + $session.id)
     }
-
+    
     async function handleDeleteSession(){
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/` + $session.id, {
             method: "DELETE",
             credentials: "include",
         });
-
+        
         const json = await response.json();
-
+        
         if(!response.ok){
             return errorToast(json.message);
         }
+
         succesToast(json.message);
         $session = {id: "", private: false};
         $requestList =[];
         $activeRequest = null;
+        refreshConnectionOnNewSession = false;
         navigate("/");
     }
-   
+    
+    socket.on("newRequest", (data) => {
+        succesToast("New request!");
+        $requestList = [...$requestList, data.data];
+    });
+    
+    socket.on("prevNotications", (data) => {
+        const array = data.data
+        $requestList = array;
+    });
+    
 </script>
 
 <form class="text-left border-b-2 border-slate-200">
