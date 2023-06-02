@@ -14,7 +14,10 @@ const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { 
+        secure: false,
+        expires: 43200000
+    }
 });
 
 app.use(sessionMiddleware);
@@ -24,20 +27,9 @@ const httpServer = createServer(app);
 
 import cors from "cors";
 import { Server } from "socket.io";
+
 let io = new Server(httpServer);
-if(process.env.DEV_MODE == "true"){
-    app.use(cors({
-        credentials: true,
-        origin: true
-    }));
-    io = new Server(httpServer, {
-        cors: {
-            origin: process.env.DEV_ORIGIN,
-            methods: ["*"],
-            credentials: true
-        }
-    });
-}else {
+if(process.env.DEV_MODE != "true"){
     app.use(express.static(process.env.STATIC_PATH));
 
     const sendFrontend = (req, res) => {
@@ -49,11 +41,23 @@ if(process.env.DEV_MODE == "true"){
     app.get("/login", sendFrontend);
 
     app.get("/signup", sendFrontend);
+
+}else {
+    app.use(cors({
+        credentials: true,
+        origin: true
+    }));
+    io = new Server(httpServer, {
+        cors: {
+            origin: process.env.DEV_ORIGIN,
+            methods: ["*"],
+            credentials: true
+        }
+    });
 }
 
 import auth from "./routes/authRouter.js"
 app.use(auth);
-
 
 import sessionRouter from "./routes/sessionRouter.js";
 app.use("/api", sessionRouter);
@@ -62,7 +66,7 @@ import requestRouter from "./routes/requestRouter.js"
 app.use("/api", requestRouter);
 
 app.use("/:sessionId", express.text());
-app.use("/:sessionId", express.urlencoded());
+app.use("/:sessionId", express.urlencoded({extended:true}));
 
 
 import saveRequest from "./middelware/requestLogger.js"
@@ -75,9 +79,9 @@ const sendNotification = (req, res, next) => {
     }
     
     io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
-    
-    next()
-}
+
+    next();
+};
 
 app.use("/:sessionId", sendNotification);
 

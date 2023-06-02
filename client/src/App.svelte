@@ -28,7 +28,7 @@
 <main class="min-h-screen h-screen pt-0 my-0 mx-auto text-center flex flex-col items-stretch bg-white bg-opacity-0 text-black">
     <SvelteToast options={{reversed:true, intro:{y:100}}}/>
     <Router>
-        <Navbar color="none" class="w-screen border-b-2 border-blue-900 bg-blue-900 h-5p">
+        <Navbar color="none" class="w-screen border-b-2 border-blue-900 bg-blue-900">
             <NavBrand href="/">
                 <img src="/icon.svg" alt="" class=" mr-3 h-6 sm:h-14">
                 <span class="self-center whitespace-nowrap text-xl text-primary-500 font-bold">
@@ -63,7 +63,7 @@
             </NavUl>
         </Navbar>
       
-        <div class="mb-auto w-screen h-content">
+        <div class="w-screen h-[calc(100%-146px)] overflow-auto bg-white">
             <Route path="$/:sessionId" let:params>
                 <Home/>
             </Route>
@@ -82,7 +82,7 @@
             <Route component={NotFound}/>
         </div>
     </Router>
-    <Footer footerType="custom" customClass="p-4 bg-blue-900 md:flex md:items-center md:justify-between md:p-6 h-5p">
+    <Footer footerType="custom" customClass="p-4 bg-blue-900 sm:flex sm:items-center sm:justify-between p-6">
         <FooterCopyright class="text-white" href="/" by="Webhooker" year={2023}/>
     </Footer>
 </main>

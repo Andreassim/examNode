@@ -12,7 +12,7 @@ const config = {
       },
       height:{
         '5p': '5%',
-        'content': '90%'
+        'content': '[calc(90%-56px)]'
       }
     }
   },

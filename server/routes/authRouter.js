@@ -46,7 +46,7 @@ router.post("/signup", async (req, res) => {
 
     try{
         await db.run("INSERT INTO users (email, password) VALUES (?, ?)", [req.body.email, password]);
-    } catch (error){
+    } catch {
         return res.status(400).send({message: "user already exists"});
     }
     
