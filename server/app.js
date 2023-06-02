@@ -27,20 +27,13 @@ const httpServer = createServer(app);
 
 import cors from "cors";
 import { Server } from "socket.io";
+import { requireValidUUID } from "./middelware/uuidValidator.js";
 
 let io = new Server(httpServer);
 if(process.env.DEV_MODE != "true"){
     app.use(express.static(process.env.STATIC_PATH));
 
-    const sendFrontend = (req, res) => {
-        res.sendFile(path.resolve(process.env.STATIC_PATH + "/index.html"));
-    };
-
-    app.get("/profile", sendFrontend);
-
-    app.get("/login", sendFrontend);
-
-    app.get("/signup", sendFrontend);
+    app.use("/:sessionId", requireValidUUID);   
 
 }else {
     app.use(cors({
@@ -64,6 +57,8 @@ app.use("/api", sessionRouter);
 
 import requestRouter from "./routes/requestRouter.js"
 app.use("/api", requestRouter);
+
+
 
 app.use("/:sessionId", express.text());
 app.use("/:sessionId", express.urlencoded({extended:true}));
