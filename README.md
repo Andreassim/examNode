@@ -21,5 +21,3 @@ $ npm install
 $ npm run create-db
 $ node app.js
 ```
-
-currently got support for body data with text, json and urlencoded
