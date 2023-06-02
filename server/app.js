@@ -63,7 +63,6 @@ const sendNotification = (req, res, next) => {
 app.use("/:sessionId", sendNotification);
 
 app.get("/:sessionId", (req,res) => {
-    console.log(req.body);
     res.status(200).send();
 });
 
@@ -97,7 +96,6 @@ io.on("connection", async (socket) => {
     if(socket.request.session.sessionID){
 
         socket.leave(`${socket.request.session.sessionID}`);
-        
         const prevNotifications = await db.all("SELECT id, method FROM requests WHERE session_id = ?", [socket.request.session.sessionID]);
         if(prevNotifications.length !== 0){
             let data = [];

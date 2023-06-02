@@ -1,8 +1,11 @@
 import db from "../database/connection.js"
 
 export async function saveRequest(req, res, next) {
-    const utf8decoder = new TextDecoder(); 
-    const body = utf8decoder.decode(req.body);
+    let body;
+    if(!req.body == {}){
+        const utf8decoder = new TextDecoder(); 
+        body = utf8decoder.decode(req.body);
+    }
     
     const requestToStore = {
         details:{
