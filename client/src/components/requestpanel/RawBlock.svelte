@@ -8,7 +8,7 @@
     </p>
     <div class="bg-slate-300 rounded-lg">
         <pre class="pl-12">
-            {`\n`}{JSON.stringify(content, null, 2)}
+            {`\n`}{content}
         </pre>
     </div>
 </div>

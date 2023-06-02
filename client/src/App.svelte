@@ -14,7 +14,7 @@
     import NotFound from './pages/notFound/NotFound.svelte';
 
     onMount( async () => {
-        const response = await fetch(`${$PROTOCOL+$BASE_URL}/verify`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/verify`, {
             credentials:"include"
         });
         const loggedInUser = await response.json();

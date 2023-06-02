@@ -6,7 +6,7 @@
 
     const navigate = useNavigate();
     async function handleLogout(){
-        const response = await fetch(`${$PROTOCOL+$BASE_URL}/logout`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/logout`, {
             credentials: "include"
         });
         if(!response.ok){

@@ -22,7 +22,7 @@
             password: password
         };
 
-        const response = await fetch(`${$PROTOCOL+$BASE_URL}/signup`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/signup`, {
             method: "POST",
             headers: {"Content-Type": "application/json"},
             credentials: "include",

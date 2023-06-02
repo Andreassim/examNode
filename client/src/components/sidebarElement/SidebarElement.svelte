@@ -9,9 +9,9 @@
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/request/${request.id}`, {
             credentials: "include"
         });
+
         const json = await response.json();
         const result = JSON.parse(json.data.data);
-
         $activeRequest = result
     }
 
