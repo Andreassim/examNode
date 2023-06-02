@@ -13,7 +13,10 @@ const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: false }
+    cookie: { 
+        secure: false,
+        expires: 43200000
+    }
 });
 
 app.use(sessionMiddleware);
