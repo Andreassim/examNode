@@ -25,30 +25,6 @@ app.use(sessionMiddleware);
 import {createServer} from "http";
 const httpServer = createServer(app);
 
-import cors from "cors";
-import { Server } from "socket.io";
-import { requireValidUUID } from "./middelware/uuidValidator.js";
-
-let io = new Server(httpServer);
-if(process.env.DEV_MODE != "true"){
-    app.use(express.static(process.env.STATIC_PATH));
-
-    app.use("/:sessionId", requireValidUUID);   
-
-}else {
-    app.use(cors({
-        credentials: true,
-        origin: true
-    }));
-    io = new Server(httpServer, {
-        cors: {
-            origin: process.env.DEV_ORIGIN,
-            methods: ["*"],
-            credentials: true
-        }
-    });
-}
-
 import auth from "./routes/authRouter.js"
 app.use(auth);
 
@@ -58,7 +34,13 @@ app.use("/api", sessionRouter);
 import requestRouter from "./routes/requestRouter.js"
 app.use("/api", requestRouter);
 
+import { Server } from "socket.io";
+import { requireValidUUID } from "./middelware/uuidValidator.js";
+let io = new Server(httpServer);
 
+app.use(express.static(process.env.STATIC_PATH));
+
+app.use("/:sessionId", requireValidUUID);   
 
 app.use("/:sessionId", express.text());
 app.use("/:sessionId", express.urlencoded({extended:true}));
@@ -100,11 +82,9 @@ app.delete("/:sessionId", (req,res) => {
     res.status(200).send();
 });
 
-if(process.env.DEV_MODE != "true"){
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(process.env.STATIC_PATH + "/index.html"));
-        });
-}
+app.get("*", (req, res) => {
+    res.sendFile(path.resolve(process.env.STATIC_PATH + "/index.html"));
+});
 
 const wrap = middleware => (socket, next) => middleware(socket.request, {}, next);
 io.use(wrap(sessionMiddleware));
