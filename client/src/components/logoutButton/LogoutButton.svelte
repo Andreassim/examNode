@@ -1,7 +1,7 @@
 <script>
     import { useNavigate } from "svelte-navigator";
     import { BASE_URL, user, PROTOCOL } from "../../store/globals.js";
-    import { session } from "../../store/sessionStore/sessionStore.js";
+    import { session, activeRequest,requestList } from "../../store/sessionStore/sessionStore.js";
     import { errorToast, succesToast } from "../../util/custom-toasters.js";
 
     const navigate = useNavigate();
@@ -14,6 +14,8 @@
         }
         $user = "";
         $session = {id:"", private: false};
+        $requestList = [];
+        $activeRequest = null;
         succesToast("Logged out");
         navigate("/login");
     }

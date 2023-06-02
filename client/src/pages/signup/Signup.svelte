@@ -49,7 +49,7 @@
                     <h1 class=" text-primary-600 font-bold">Signup</h1>
                     <div class="my-2">
                         <Label for="email" class="mb-2">Email</Label>
-                        <Input type="text" id="email" placeholder="donald@duck.movistar" bind:value={email} required/>
+                        <Input type="email" id="email" placeholder="donald@duck.movistar" bind:value={email} required/>
                     </div>
                     <div class="my-2">
                         <Label for="password" class="mb-2">Password</Label>
