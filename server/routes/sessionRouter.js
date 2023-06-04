@@ -77,9 +77,9 @@ router.post("/sessions/reconnect", async (req,res) => {
 
 
 router.delete("/sessions/:id", async (req, res) => {
-    const sessionId = req.params.id;
+    const sessionID = req.params.id;
 
-    const session = await db.get("SELECT id, user_id FROM sessions WHERE id = ?", [sessionId]);
+    const session = await db.get("SELECT id, user_id FROM sessions WHERE id = ?", [sessionID]);
     if(!session){
         return res.status(400).send({message: "Session doesnt exists"});
     }
