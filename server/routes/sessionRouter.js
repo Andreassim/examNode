@@ -17,8 +17,10 @@ router.get("/sessions/new", async (req,res) => {
     
     req.session.private = false
     let userID;
+
     if(req.session.user){
         userID = req.session.user.id
+        
         if(privateSession){
             req.session.private = true;
         }
@@ -48,14 +50,18 @@ router.post("/sessions/reconnect", async (req,res) => {
     if(session.is_private){
         if(!req.session.user){
             req.session.private = false;
+
             return res.status(401).send({message: "unathorized"});
         }
         if(!session.user_id == req.session.user.id){
             req.session.private = false;
+
             return res.status(401).send({message: "unathorized"});
         }
+
         req.session.private = true;
         req.session.sessionID = session.id;
+
         return res.status(200).send({
             data: {
                 id:session.id,
@@ -101,8 +107,8 @@ router.delete("/sessions/:id", async (req, res) => {
     }catch {
         return res.status(500).send({message: "Something went wrong"});
     }
+
     res.status(200).send({message: `${session.id} has been deleted`});
 });
-
 
 export default router;

@@ -80,9 +80,10 @@ io.on("connection", async (socket) => {
     const isInitialised = socket.request.session.sessionID ? true : false;
 
     if(isInitialised){
-
         socket.leave(`${socket.request.session.sessionID}`);
+
         const prevNotifications = await db.all("SELECT id, method FROM requests WHERE session_id = ?", [socket.request.session.sessionID]);
+        
         if(prevNotifications.length !== 0){
             socket.emit("prevNotications", {data: prevNotifications})
         }

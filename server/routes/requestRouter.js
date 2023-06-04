@@ -10,6 +10,7 @@ router.get("/requests/:id", async (req,res) => {
     if(!result){
         return res.status(400).send({message: "nothing here"});
     }
+
     res.send({data: result.data});
 });
 

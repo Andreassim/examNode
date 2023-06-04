@@ -8,7 +8,9 @@ router.get("/logout", (req, res) =>{
     if(!req.session.user){
         return res.status(400).send({message: "not logged in"})
     }
+
     req.session.destroy();
+
     res.status(200).send({message: "user logged out"});
 });
 
@@ -22,6 +24,7 @@ router.post("/login", async (req, res) => {
     }
     
     const user = await db.get("SELECT id, email, password FROM users WHERE email = ?", [req.body.email]);
+    
     if(!user){
         return res.status(400).send({message: "email or password is incorrect"});
     }
@@ -31,7 +34,9 @@ router.post("/login", async (req, res) => {
     if(!match){
         return res.status(400).send({message: "email or password is incorrect"});
     }
+
     delete user["password"];
+    
     req.session.user = user;
    
     res.status(200).send({data: user});
@@ -46,6 +51,7 @@ router.post("/signup", async (req, res) => {
 
     try{
         await db.run("INSERT INTO users (email, password) VALUES (?, ?)", [req.body.email, password]);
+    
     } catch {
         return res.status(400).send({message: "user already exists"});
     }
