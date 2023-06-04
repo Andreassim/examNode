@@ -64,7 +64,7 @@
         </Navbar>
       
         <div class="w-screen h-[calc(100%-146px)] overflow-auto bg-white">
-            <Route path="$/:sessionId" let:params>
+            <Route path="$/:sessionID" let:params>
                 <Home/>
             </Route>
             <PrivateRoute path="profile" condition={$user} redirectLocation="/login">

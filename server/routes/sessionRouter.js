@@ -36,7 +36,7 @@ router.get("/sessions/new", async (req,res) => {
 
 router.post("/sessions/reconnect", async (req,res) => {
     if(!req.body.sessionID){
-        return res.status(400).send({message: "Missing sessionId"});
+        return res.status(400).send({message: "Missing sessionID"});
     }
 
     const session = await db.get("SELECT id, is_private, user_id FROM sessions WHERE id = ?", [req.body.sessionID]);

@@ -23,7 +23,7 @@ export async function saveRequest(req, res, next) {
         body: body,
     }
 
-    await db.run("INSERT INTO requests (id, data, session_id, method) VALUES (?, ? ,?, ?);",[requestToStore.details.id, JSON.stringify(requestToStore), req.params.sessionId, req.method]);
+    await db.run("INSERT INTO requests (id, data, session_id, method) VALUES (?, ? ,?, ?);",[requestToStore.details.id, JSON.stringify(requestToStore), req.params.sessionID, req.method]);
 
     next();
 };

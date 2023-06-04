@@ -42,12 +42,12 @@ let io = new Server(httpServer);
 app.use(express.static(process.env.STATIC_PATH));
 
 import { requireValidUUID } from "./middelware/uuidValidator.js";
-app.use("/:sessionId", requireValidUUID);   
+app.use("/:sessionID", requireValidUUID);   
 
-app.use("/:sessionId", bodyParser.raw({type:"*/*"}));
+app.use("/:sessionID", bodyParser.raw({type:"*/*"}));
 
 import saveRequest from "./middelware/requestLogger.js"
-app.use("/:sessionId", saveRequest);
+app.use("/:sessionID", saveRequest);
 
 const sendNotification = (req, res, next) => {
     const notification = {
@@ -55,14 +55,15 @@ const sendNotification = (req, res, next) => {
         method: req.method
     }
     
-    io.to(`${req.params.sessionId}`).emit("newRequest", {data: notification});
+    io.to(`${req.params.sessionID}`).emit("newRequest", {data: notification});
 
     next();
 };
 
-app.use("/:sessionId", sendNotification);
+app.use("/:sessionID", sendNotification);
 
-app.all("/:sessionId", (req, res) => {
+app.all("/:sessionID", (req, res) => {
+    console.log(req.params.sessionID);
     res.status(200).send();
 });
 

@@ -7,8 +7,8 @@
 
     const navigate = useNavigate();
 
-    function handleNavigateToSession(sessionId){
-        $session.id = sessionId;
+    function handleNavigateToSession(sessionID){
+        $session.id = sessionID;
         navigate(`/$/${$session.id}`);
     }
 

@@ -17,9 +17,9 @@
 
     const params = useParams()
     onMount(async () =>{
-        if($params.sessionId){
-            if($params.sessionId !== $session.id){
-                $session.id = $params.sessionId;
+        if($params.sessionID){
+            if($params.sessionID !== $session.id){
+                $session.id = $params.sessionID;
             }
             await handleConnectToSession();
             refreshConnectionOnNewSession = true;
