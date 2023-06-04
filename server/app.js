@@ -63,7 +63,6 @@ const sendNotification = (req, res, next) => {
 app.use("/:sessionID", sendNotification);
 
 app.all("/:sessionID", (req, res) => {
-    console.log(req.params.sessionID);
     res.status(200).send();
 });
 
