@@ -8,7 +8,6 @@ import requestId from "express-request-id";
 app.use(requestId());
 
 import session from "express-session";
-
 const sessionMiddleware = session({
     secret: process.env.SESSION_SECRET,
     resave: false,

@@ -92,10 +92,10 @@ router.delete("/sessions/:id", async (req, res) => {
 
     if(session.user_id != null){
         if(!req.session.user){
-            return res.status(401).send({message: "Unathorized"});
+            return res.status(401).send({message: "Unathorized, you dont own this session"});
         }
         if(!req.session.user.id == session.user_id){
-            return res.status(401).send({message: "Unathorized"});   
+            return res.status(401).send({message: "Unathorized, you dont own this session"});   
         }
     }
 
