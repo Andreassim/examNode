@@ -37,7 +37,7 @@ import requestRouter from "./routes/requestRouter.js"
 app.use("/api", requestRouter);
 
 import { Server } from "socket.io";
-let io = new Server(httpServer);
+const io = new Server(httpServer);
 
 app.use(express.static(process.env.STATIC_PATH));
 
