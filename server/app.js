@@ -84,11 +84,7 @@ io.on("connection", async (socket) => {
         socket.leave(`${socket.request.session.sessionID}`);
         const prevNotifications = await db.all("SELECT id, method FROM requests WHERE session_id = ?", [socket.request.session.sessionID]);
         if(prevNotifications.length !== 0){
-            let data = [];
-            prevNotifications.forEach((notification) => {
-                data.push(notification);
-            });
-            socket.emit("prevNotications", {data: data})
+            socket.emit("prevNotications", {data: prevNotifications})
         }
         
         socket.join(`${socket.request.session.sessionID}`);
