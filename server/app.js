@@ -62,23 +62,7 @@ const sendNotification = (req, res, next) => {
 
 app.use("/:sessionId", sendNotification);
 
-app.get("/:sessionId", (req,res) => {
-    res.status(200).send();
-});
-
-app.post("/:sessionId", (req,res) => {
-    res.status(200).send();
-});
-
-app.put("/:sessionId", (req,res) => {
-    res.status(200).send();
-});
-
-app.patch("/:sessionId", (req,res) => {
-    res.status(200).send();
-});
-
-app.delete("/:sessionId", (req,res) => {
+app.all("/:sessionId", (req, res) => {
     res.status(200).send();
 });
 

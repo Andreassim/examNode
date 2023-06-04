@@ -1,9 +1,10 @@
 import db from "../database/connection.js"
 
+const utf8decoder = new TextDecoder(); 
+
 export async function saveRequest(req, res, next) {
     let body;
     if(!req.body == {}){
-        const utf8decoder = new TextDecoder(); 
         body = utf8decoder.decode(req.body);
     }
     

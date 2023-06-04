@@ -19,7 +19,7 @@
     <div class="col-span-1 pl-1">
         <RequestTable title="Params" rows={request.params}></RequestTable>
     </div>
-    {#if Object.keys(request.body).length > 0}
+    {#if request.body}
         <div class="col-span-2">
             <RawBlock content={request.body}></RawBlock>
         </div>
