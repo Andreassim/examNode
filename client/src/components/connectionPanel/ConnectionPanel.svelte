@@ -16,12 +16,12 @@
     });
 
     const params = useParams()
-    onMount(() =>{
+    onMount(async () =>{
         if($params.sessionId){
             if($params.sessionId !== $session.id){
                 $session.id = $params.sessionId;
             }
-            handleConnectToSession();
+            await handleConnectToSession();
             refreshConnectionOnNewSession = true;
         }
     });
