@@ -3,7 +3,7 @@ import db from "../database/connection.js";
 import { Router } from "express";
 const router = Router();
 
-router.get("/request/:id", async (req,res) => {
+router.get("/requests/:id", async (req,res) => {
     const result = await db.get(
         "SELECT data FROM requests WHERE id = ? AND session_id = ?", [req.params.id, req.session.sessionID]);
 

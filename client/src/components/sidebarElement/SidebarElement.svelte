@@ -7,7 +7,7 @@
 
     async function handleActiveRequest(){
 
-        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/request/${request.id}`, {
+        const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/requests/${request.id}`, {
             credentials: "include"
         });
 
