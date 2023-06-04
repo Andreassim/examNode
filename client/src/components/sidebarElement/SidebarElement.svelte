@@ -6,13 +6,12 @@
     const stylingOptions = ["GET", "POST", "PUT", "PATCH", "DELETE"];
 
     async function handleActiveRequest(){
-
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/requests/${request.id}`, {
             credentials: "include"
         });
-
         const json = await response.json();
         const result = JSON.parse(json.data);
+
         $activeRequest = result
     }
 

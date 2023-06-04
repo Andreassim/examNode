@@ -21,7 +21,9 @@
             if($params.sessionID !== $session.id){
                 $session.id = $params.sessionID;
             }
+
             await handleConnectToSession();
+
             refreshConnectionOnNewSession = true;
         }
     });
@@ -36,11 +38,11 @@
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/new?privateSession=${privateSession}`, {
             credentials: "include"
         });
-        
         const result = await response.json();
         
         $session = result.data;
         navigate(`/$/${$session.id}`);
+        
         if(refreshConnectionOnNewSession){
             handleConnectToSession();
         }
@@ -50,20 +52,20 @@
         const body = {
                sessionID: $session.id 
             };
-        
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/reconnect`, {
             method: "POST",
             headers: {'Content-Type': 'application/json'},
             credentials: "include",
             body: JSON.stringify(body)
         });
-        
         const result = await response.json();
 
         if(!response.ok){
             return  errorToast(result.message);                        
-        }        
+        }
+
         $session = result.data;
+
         handleReconnect();
     }
 
@@ -71,8 +73,10 @@
         if(socket.connected){
             socket.disconnect();
         }
+        
         $requestList = [];
         $activeRequest = null;
+        
         socket.connect();
         succesToast("Connected to " + $session.id);
     }
@@ -81,11 +85,11 @@
         if(!$session.id){
             return errorToast("No session found!");
         }
+
         const response = await fetch(`${$PROTOCOL+$BASE_URL}/api/sessions/` + $session.id, {
             method: "DELETE",
             credentials: "include",
         });
-        
         const json = await response.json();
         
         if(!response.ok){
@@ -93,20 +97,24 @@
         }
 
         succesToast(json.message);
+
         $session = {id: "", private: false};
         $requestList =[];
         $activeRequest = null;
         refreshConnectionOnNewSession = false;
+
         navigate("/");
     }
     
     socket.on("newRequest", (data) => {
         succesToast("New request!");
+
         $requestList = [...$requestList, data.data];
     });
     
     socket.on("prevNotications", (data) => {
         const array = data.data
+        
         $requestList = array;
     });
     

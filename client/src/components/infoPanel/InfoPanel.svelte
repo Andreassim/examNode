@@ -42,6 +42,5 @@
             <h2 class="text-2xl font-bold text-primary-500">Private sessions</h2>
             <p>To make the session private you can login and create a session that is only available to your user.</p>
         </div>
-    </Card>
-        
+    </Card>      
 </div>
