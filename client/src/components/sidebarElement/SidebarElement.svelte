@@ -12,7 +12,7 @@
         });
 
         const json = await response.json();
-        const result = JSON.parse(json.data.data);
+        const result = JSON.parse(json.data);
         $activeRequest = result
     }
 
