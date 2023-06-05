@@ -43,6 +43,7 @@ app.use(express.static(process.env.STATIC_PATH));
 import { requireValidUUID } from "./middelware/uuidValidator.js";
 app.use("/:sessionID", requireValidUUID);   
 
+import bodyParser from "body-parser";
 app.use("/:sessionID", bodyParser.raw({type:"*/*"}));
 
 import saveRequest from "./middelware/requestLogger.js"
@@ -73,7 +74,6 @@ const wrap = middleware => (socket, next) => middleware(socket.request, {}, next
 io.use(wrap(sessionMiddleware));
 
 import db from "./database/connection.js";
-import bodyParser from "body-parser";
 
 io.on("connection", async (socket) => {
     const isInitialised = socket.request.session.sessionID ? true : false;

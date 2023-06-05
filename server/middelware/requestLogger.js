@@ -4,10 +4,10 @@ const utf8decoder = new TextDecoder();
 
 export async function saveRequest(req, res, next) {
     let body;
-    if(!req.body == {}){
+    if(Object.keys(req.body).length != 0){
         body = utf8decoder.decode(req.body);
     }
-    
+
     const requestToStore = {
         details:{
             id: req.id,
